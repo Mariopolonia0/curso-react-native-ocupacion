@@ -1,4 +1,4 @@
-import React,{useState, useEffect} from 'react';
+import React, { useState, useEffect } from "react";
 import { StatusBar } from "expo-status-bar";
 import {
   StyleSheet,
@@ -25,18 +25,17 @@ export default function App() {
       .finally(() => setLoading(false));
   }, []);
 
-
   return (
     <View style={styles.container}>
+      <Text style={styles.letraTitulo}
+      >{"Lista de libros"}</Text>
       {loading ? (
         <Text>Loading...</Text>
       ) : (
-        
         data.map((post) => {
           return (
-            <View>
-              <Text style={styles.title}>{post.title}</Text>
-              <Text>{post.bookId}</Text>
+            <View style={styles.card}>
+              <Text>{"Codigo : "+post.bookId}</Text>
               <Text>{post.nombre}</Text>
               <Text>{post.nombreAutor}</Text>
             </View>
@@ -44,24 +43,29 @@ export default function App() {
         })
       )}
     </View>
-);}
-
-
+  );
+}
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center",
+    alignItems: "left",
+    justifyContent: "left",
+    padding: 25,
+  },
+  letraTitulo:{
+    paddingTop:50,
+    paddingBottom: 10
   },
   card: {
+    padding: 10,
     marginBottom: 10,
-    backgroundColor: "#060",
+    backgroundColor: "#D1D1D1",
   },
 });
 
-  /* <View style={styles.container}>
+/* <View style={styles.container}>
       <StatusBar style="light"></StatusBar>
 
       <Image
