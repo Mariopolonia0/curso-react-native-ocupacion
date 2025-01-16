@@ -64,35 +64,3 @@ const styles = StyleSheet.create({
     backgroundColor: "#D1D1D1",
   },
 });
-
-/* <View style={styles.container}>
-      <StatusBar style="light"></StatusBar>
-
-      <Image
-        source={icon}
-        style={{
-          width: 100,
-          height: 200,
-          resizeMode: "center",
-        }}
-      />
-      <View>
-        <Text>{"HOLA :" + book}</Text>
-      </View>
-      <Button
-        title="Bueno"
-        onPress={() => {
-          apiCall;
-        }}
-      ></Button>
-    </View>
-  );*/
-/*
-  {books.map((book) => (
-        <View key={book.bookId} style={styles.card}>
-          <Text>{book.nombre}</Text>
-          <Text>{book.nombreAutor}</Text>
-        </View>
-      ))}
-
-*/
