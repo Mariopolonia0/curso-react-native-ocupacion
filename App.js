@@ -1,13 +1,15 @@
 import React, { useState, useEffect } from "react";
-import { StatusBar } from "expo-status-bar";
 import {
+  SafeAreaView,
   StyleSheet,
   Text,
   View,
+  StatusBar,
+  ActionBar,
   Image,
   Button,
-  TouchableHighlight,
 } from "react-native";
+
 //"https://controltarea.azurewebsites.net/api/Books"
 
 const icon = require("./assets/SPIcon.png");
@@ -23,25 +25,36 @@ export default function App() {
       .then((json) => setData(json))
       .catch((error) => console.error(error))
       .finally(() => setLoading(false));
-  }, []);
+  }, [loading]);
 
   return (
+
     <View style={styles.container}>
-      <Text style={styles.letraTitulo}
-      >{"Lista de libros"}</Text>
+      <StatusBar backgroundColor="#000080" />
+      <View style={styles.barTitle}>
+        <Text style={styles.letraTitulo}>{"Lista de libros"}</Text>
+        <Button style={styles.button} title="New Book" onPress={() => alert('hola')} />
+      </View>
       {loading ? (
         <Text>Loading...</Text>
       ) : (
         data.map((post) => {
           return (
-            <View style={styles.card}>
-              <Text>{"Codigo : "+post.bookId}</Text>
+            <View key={post.bookId} style={styles.card}>
+              <Text>{"Codigo : " + post.bookId}</Text>
               <Text>{post.nombre}</Text>
               <Text>{post.nombreAutor}</Text>
+              <Text>{"Precio : " + post.precio}</Text>
             </View>
           );
         })
       )}
+      <View style={styles.containerImage}>
+        <Image
+          source={icon}
+          style={styles.image}
+        />
+      </View>
     </View>
   );
 }
@@ -49,18 +62,43 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#fff",
-    alignItems: "left",
-    justifyContent: "left",
-    padding: 25,
+    backgroundColor: "beige",
   },
-  letraTitulo:{
-    paddingTop:50,
-    paddingBottom: 10
+  button: {
+  },
+  containerImage: {
+    display: "flex",
+    alignItems: "center",
+  },
+  barTitle: {
+    backgroundColor: "#010080",
+    display: "flex",
+    flexDirection: 'row',
+    justifyContent: "space-between",
+    padding: 5,
+    alignItems: "center",
+  },
+  letraTitulo: {
+    padding: 10,
+    color: 'white',
+    fontSize: 24,
+
   },
   card: {
-    padding: 10,
-    marginBottom: 10,
-    backgroundColor: "#D1D1D1",
+    padding: 5,
+    alignItems: "left",
+    margin: 10,
+    backgroundColor: "gray",
+    display: "flex",
+    flexDirection: 'column',
   },
+  image: {
+    width: 100,
+    height: 100,
+    resizeMode: "center",
+    padding: 5,
+    alignItems: "center",
+    display: "flex",
+    justifyContent: "center",
+  }
 });
