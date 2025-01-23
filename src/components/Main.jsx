@@ -10,6 +10,7 @@ import {
   ActionBar,
   Image,
   Button,
+  ScrollView,
 } from "react-native";
 
 const icon = require("../resources/SPIcon.png");
@@ -25,7 +26,7 @@ export function Main() {
   }, [loading]);
   //<Button style={styles.button} title="New Book" onPress={() =>  } />
   return (
-    <View >
+    <View style={styles.container}>
       <StatusBar backgroundColor="#000080" />
       <View style={styles.barTitle}>
         <Text style={styles.letraTitulo}>{"Lista de libros"}</Text>
@@ -36,16 +37,23 @@ export function Main() {
       {loading ? (
         <Text>Loading...</Text>
       ) : (
-        data.map((post) => {
-          return (
-            <View key={post.bookId} style={styles.card}>
-              <Text>{"Codigo : " + post.bookId}</Text>
-              <Text>{post.nombre}</Text>
-              <Text>{post.nombreAutor}</Text>
-              <Text>{"Precio : " + post.precio}</Text>
-            </View>
-          );
-        })
+        <ScrollView >{
+          data.map((post) => {
+            return (
+              //asChild es para que reconosca el componente View como hijo
+              <Link href= asChild>
+                <View key={post.bookId} style={styles.card}>
+                  <Text>{"Codigo : " + post.bookId}</Text>
+                  <Text>{post.nombre}</Text>
+                  <Text>{post.nombreAutor}</Text>
+                  <Text>{"Precio : " + post.precio}</Text>
+                </View>
+              </Link>
+
+            );
+          })}
+        </ScrollView>
+
       )}
       <View style={styles.containerImage}>
         <Image

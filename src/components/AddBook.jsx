@@ -7,6 +7,7 @@ import {
     Image,
     Button,
 } from "react-native";
+import { RegistroBook } from "./RegistroBook";
 
 export function AddBook() {
     return (
@@ -18,6 +19,7 @@ export function AddBook() {
                     Back
                 </Link>
             </View>
+            <RegistroBook />
         </View>
     )
 }
