@@ -11,6 +11,7 @@ import {
   Image,
   Button,
   ScrollView,
+  Pressable
 } from "react-native";
 
 const icon = require("../resources/SPIcon.png");
@@ -30,8 +31,10 @@ export function Main() {
       <StatusBar backgroundColor="#000080" />
       <View style={styles.barTitle}>
         <Text style={styles.letraTitulo}>{"Lista de libros"}</Text>
-        <Link style={styles.buttonAdd} href="/addBook">
-          Add
+        <Link href="/addBook" asChild>
+          <Pressable>
+            
+          </Pressable>
         </Link>
       </View>
       {loading ? (
@@ -41,7 +44,7 @@ export function Main() {
           data.map((post) => {
             return (
               //asChild es para que reconosca el componente View como hijo
-              <Link href= asChild>
+              <Link href="" asChild>
                 <View key={post.bookId} style={styles.card}>
                   <Text>{"Codigo : " + post.bookId}</Text>
                   <Text>{post.nombre}</Text>
