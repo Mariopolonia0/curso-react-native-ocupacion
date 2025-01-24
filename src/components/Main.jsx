@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { getBooks } from "../lib/data-api";
 import { Link } from "expo-router";
 import Ionicons from '@expo/vector-icons/Ionicons';
+import { styled } from "nativewind"
 import {
   SafeAreaView,
   StyleSheet,
@@ -16,6 +17,7 @@ import {
 } from "react-native";
 
 const icon = require("../resources/SPIcon.png");
+const StyledPressable = styled(Pressable)
 
 export function Main() {
   const [data, setData] = useState([]);
@@ -44,20 +46,20 @@ export function Main() {
         <ScrollView >{
           data.map((post) => {
             return (
-              //asChild es para que reconosca el componente View como hijo
-              <Link href="" asChild>
-                <View key={post.bookId} style={styles.card}>
-                  <Text>{"Codigo : " + post.bookId}</Text>
-                  <Text>{post.nombre}</Text>
-                  <Text>{post.nombreAutor}</Text>
-                  <Text>{"Precio : " + post.precio}</Text>
-                </View>
+              //asChild es para que reconosca el componente StyledPressable como hijo
+              <Link href={`/${post}`} asChild >
+                <StyledPressable className="active:opacity-70 border border-black active:border-white/50 mb-2">
+                  <View key={post.bookId} style={styles.card}>
+                    <Text>{"Codigo : " + post.bookId}</Text>
+                    <Text>{post.nombre}</Text>
+                    <Text>{post.nombreAutor}</Text>
+                    <Text>{"Precio : " + post.precio}</Text>
+                  </View>
+                </StyledPressable>
               </Link>
-
             );
           })}
         </ScrollView>
-
       )}
       <View style={styles.containerImage}>
         <Image

@@ -12,8 +12,8 @@ import { RegistroBook } from "./RegistroBook";
 export function AddBook() {
     return (
         <View >
-            <StatusBar backgroundColor="#000080" />
             <View style={styles.barTitle}>
+                <StatusBar backgroundColor="#000080" />
                 <Text style={styles.letraTitulo}>{"Agregar libro"}</Text>
                 <Link style={styles.buttonAdd} href="/">
                     Back
