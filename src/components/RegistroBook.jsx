@@ -4,9 +4,9 @@ import {
     Text,
     TextInput,
     StyleSheet,
-    Button
+    Button, Pressable
 } from "react-native";
-
+import MaterialIcons from '@expo/vector-icons/MaterialIcons';
 import { postBook } from "../lib/data-api";
 
 export function RegistroBook() {
@@ -33,7 +33,7 @@ export function RegistroBook() {
     }
 
     const eliminar = () => {
-        alert("cancelar")
+        alert("no disponisble")
     }
 
     return (
@@ -68,24 +68,22 @@ export function RegistroBook() {
                 value={precio} />
 
             <View style={styles.cardButton}>
-                <Button
-                    title="Nuevo"
-                    onPress={nuevo}>
-                </Button>
+                <Pressable onPress={nuevo} >
+                    <MaterialIcons name="fiber-new" size={50} color="#000080" paddingRight="10" />
+                </Pressable>
 
-                <Button
-                    title="Guardar"
-                    onPress={guardarData}>
-                </Button>
+                <Pressable onPress={guardarData}>
+                    <MaterialIcons name="save" size={50} color="#000080" paddingRight="10" />
+                </Pressable>
 
-                <Button
-                    title="Eliminar"
-                    onPress={eliminar}>
-                </Button>
+                <Pressable onPress={eliminar} >
+                    <MaterialIcons name="delete" size={50} color="#000080" />
+                </Pressable>
             </View>
         </View >
     )
 }
+
 
 const styles = StyleSheet.create({
     input: {

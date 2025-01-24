@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { getBooks } from "../lib/data-api";
 import { Link } from "expo-router";
+import Ionicons from '@expo/vector-icons/Ionicons';
+import { styled } from "nativewind"
 import {
   SafeAreaView,
   StyleSheet,
@@ -11,9 +13,11 @@ import {
   Image,
   Button,
   ScrollView,
+  Pressable
 } from "react-native";
 
 const icon = require("../resources/SPIcon.png");
+const StyledPressable = styled(Pressable)
 
 export function Main() {
   const [data, setData] = useState([]);
@@ -27,33 +31,26 @@ export function Main() {
   //<Button style={styles.button} title="New Book" onPress={() =>  } />
   return (
     <View style={styles.container}>
-      <StatusBar backgroundColor="#000080" />
-      <View style={styles.barTitle}>
-        <Text style={styles.letraTitulo}>{"Lista de libros"}</Text>
-        <Link style={styles.buttonAdd} href="/addBook">
-          Add
-        </Link>
-      </View>
       {loading ? (
         <Text>Loading...</Text>
       ) : (
         <ScrollView >{
           data.map((post) => {
             return (
-              //asChild es para que reconosca el componente View como hijo
-              <Link href= asChild>
-                <View key={post.bookId} style={styles.card}>
-                  <Text>{"Codigo : " + post.bookId}</Text>
-                  <Text>{post.nombre}</Text>
-                  <Text>{post.nombreAutor}</Text>
-                  <Text>{"Precio : " + post.precio}</Text>
-                </View>
+              //asChild es para que reconosca el componente StyledPressable como hijo
+              <Link href={`/${post}`} asChild >
+                <StyledPressable className="active:opacity-70 border border-black active:border-white/50 mb-2">
+                  <View key={post.bookId} style={styles.card}>
+                    <Text>{"Codigo : " + post.bookId}</Text>
+                    <Text>{post.nombre}</Text>
+                    <Text>{post.nombreAutor}</Text>
+                    <Text>{"Precio : " + post.precio}</Text>
+                  </View>
+                </StyledPressable>
               </Link>
-
             );
           })}
         </ScrollView>
-
       )}
       <View style={styles.containerImage}>
         <Image
@@ -71,11 +68,7 @@ const styles = StyleSheet.create({
     backgroundColor: "beige",
   },
   buttonAdd: {
-    color: 'white',
-    fontSize: 18,
-    backgroundColor: "dodgerblue",
-    padding: 5,
-    marginRight: 5
+    marginRight: 10
   },
   containerImage: {
     display: "flex",
