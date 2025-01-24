@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { getBooks } from "../lib/data-api";
 import { Link } from "expo-router";
+import Ionicons from '@expo/vector-icons/Ionicons';
 import {
   SafeAreaView,
   StyleSheet,
@@ -32,8 +33,8 @@ export function Main() {
       <View style={styles.barTitle}>
         <Text style={styles.letraTitulo}>{"Lista de libros"}</Text>
         <Link href="/addBook" asChild>
-          <Pressable>
-            
+          <Pressable style={styles.buttonAdd}>
+            <Ionicons name="add-circle" size={40} color="white" />
           </Pressable>
         </Link>
       </View>
@@ -74,11 +75,7 @@ const styles = StyleSheet.create({
     backgroundColor: "beige",
   },
   buttonAdd: {
-    color: 'white',
-    fontSize: 18,
-    backgroundColor: "dodgerblue",
-    padding: 5,
-    marginRight: 5
+    marginRight: 10
   },
   containerImage: {
     display: "flex",
