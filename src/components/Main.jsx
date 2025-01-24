@@ -31,15 +31,6 @@ export function Main() {
   //<Button style={styles.button} title="New Book" onPress={() =>  } />
   return (
     <View style={styles.container}>
-      <StatusBar backgroundColor="#000080" />
-      <View style={styles.barTitle}>
-        <Text style={styles.letraTitulo}>{"Lista de libros"}</Text>
-        <Link href="/addBook" asChild>
-          <Pressable style={styles.buttonAdd}>
-            <Ionicons name="add-circle" size={40} color="white" />
-          </Pressable>
-        </Link>
-      </View>
       {loading ? (
         <Text>Loading...</Text>
       ) : (
