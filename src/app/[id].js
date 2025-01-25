@@ -1,41 +1,20 @@
-import {
-    Text,
-    View,
-    StyleSheet, Pressable
-} from "react-native";
-import { Link } from "expo-router"
-import { useLocalSearchParams } from "expo-router"
-import { Stack } from "expo-router"
-import Entypo from '@expo/vector-icons/Entypo';
-import MaterialIcons from '@expo/vector-icons/MaterialIcons';
-import { AddBook } from "../components/AddBook";
+import { View, StyleSheet, ActivityIndicator } from "react-native";
+import { useLocalSearchParams, Stack } from "expo-router"
+import { useState, useEffect } from "react";
+import { RegistroBook } from "../components/RegistroBook";
 import { getBooksId } from "../lib/data-api";
-import { useEffect, useState } from "react";
-
 
 export default function PutBook() {
 
     const { id } = useLocalSearchParams();
-    const { bookInfo, setBookInfo } = useState(null)
+    const [bookInfo, setBookInfo] = useState(null)
 
     useEffect(() => {
-        getBooksId(id).then((book) => {
-            setBookInfo(book)
-            console.error(book)
-        })
-    }, [id])
-
-    /*
-     useEffect(() => {
-        getBooks()
-          .then((books) => { setData(books) })
-          .finally(() => setLoading(false))
-      }, [loading]);
-    
-    */
+        getBooksId(id).then(setBookInfo)
+    }, [id]);
 
     return (
-        <View>
+        <View style={styles.ViewMaster}>
             <Stack.Screen
                 options={{
                     headerTitle: "Editar Book",
@@ -43,25 +22,24 @@ export default function PutBook() {
                     headerRight: () => { }
                 }}
             />
-            <Text>{bookInfo}</Text>
-            <AddBook />
+            {
+                bookInfo == null ? (
+                    <ActivityIndicator style={styles.indicator} color={"000080"} size={"large"} />
+                ) : (
+                    <RegistroBook book={bookInfo} />
+                )
+            }
         </View >
     )
 }
 
 const styles = StyleSheet.create({
-
-    barTitle: {
-        backgroundColor: "#010080",
-        display: "flex",
-        flexDirection: 'row',
-        justifyContent: "space-between",
-        padding: 5,
+    ViewMaster: {
+        flex: 1,
+    },
+    indicator: {
+        flex: 1,
         alignItems: "center",
-    },
-    letraTitulo: {
-        padding: 10,
-        color: 'white',
-        fontSize: 24,
-    },
+        justifyContent: "center"
+    }
 });

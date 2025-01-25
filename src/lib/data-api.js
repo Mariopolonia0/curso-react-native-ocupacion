@@ -2,7 +2,7 @@ export async function getBooks() {
 
   const url = "https://controltarea.azurewebsites.net/api/Books";
 
-  const response = fetch(url)
+  const response = await fetch(url)
     .then((resp) => resp.json())
 
   return response;
@@ -12,7 +12,7 @@ export async function getBooksId(_id) {
 
   const url = `https://controltarea.azurewebsites.net/api/Books/${_id}`;
 
-  const response = fetch(url)
+  const response = await fetch(url)
     .then((response) => response.json())
 
   return response;
@@ -20,12 +20,12 @@ export async function getBooksId(_id) {
 
 export async function postBook(_nombre, _nombreAutor, _edicion, _precio) {
 
-  const url = "https://controltarea.azurewebsites.net/api/Books";
+  const url = "https://controltarea.azurewebsites.net/api/Books/";
 
   const response = await fetch(url, {
     method: 'POST',
     headers: {
-      Accept: 'application/json',
+      'Accept': 'application/json',
       'Content-Type': 'application/json',
     },
     body: JSON.stringify({
@@ -40,18 +40,39 @@ export async function postBook(_nombre, _nombreAutor, _edicion, _precio) {
   return response;
 }
 
-//https://controltarea.azurewebsites.net/api/Books/105
+export async function putBook(_bookId, _nombre, _nombreAutor, _edicion, _precio) {
 
+  const url = `https://controltarea.azurewebsites.net/api/Books/${_bookId}`;
 
-/*
-const getDetails = (id) => {
-   return api.Get(`/api/details/${id}`);
+  const response = await fetch(url, {
+    method: 'PUT',
+    headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      bookId: _bookId,
+      nombre: _nombre,
+      nombreAutor: _nombreAutor,
+      edicion: _edicion,
+      precio: _precio,
+    }),
+  });
+
+  return response;
 }
 
-*/
+export async function deleteBook(_bookId) {
 
+  const url = `https://controltarea.azurewebsites.net/api/Books/${_bookId}`;
 
-//.then((resp) => resp.json());
-//alert(JSON.stringify(response))
-//status = 201
-// ok  = true
+  const response = await fetch(url, {
+    method: 'DELETE',
+    headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json',
+    },
+  });
+
+  return response;
+}

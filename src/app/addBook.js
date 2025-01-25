@@ -1,5 +1,3 @@
-import { AddBook } from "../components/AddBook"
-
 import {
     Text,
     View,
@@ -9,6 +7,7 @@ import { Link } from "expo-router"
 import { useLocalSearchParams } from "expo-router"
 import { Stack } from "expo-router"
 import MaterialIcons from '@expo/vector-icons/MaterialIcons';
+import { RegistroBook } from "../components/RegistroBook";
 
 //onPress={() => onPressLetter(index)}
 
@@ -22,7 +21,7 @@ export default function addBook() {
                     headerRight: () => { }
                 }}
             />
-            < AddBook />
+            <RegistroBook />
         </View >
     )
 }

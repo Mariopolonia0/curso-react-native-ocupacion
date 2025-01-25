@@ -4,37 +4,82 @@ import {
     Text,
     TextInput,
     StyleSheet,
-    Button, 
-    Pressable
+    Button,
+    Pressable,
+    Alert
 } from "react-native";
 import MaterialIcons from '@expo/vector-icons/MaterialIcons';
-import { postBook } from "../lib/data-api";
+import { deleteBook, postBook, putBook } from "../lib/data-api";
 
-export function RegistroBook() {
+export function RegistroBook({ book }) {
+    const [bookId, onChangeBookId] = React.useState('0');
     const [nombre, onChangeNombre] = React.useState('');
     const [nombreAutor, onChangeNombreAutor] = React.useState('');
     const [edicion, onChangeEdicion] = React.useState('');
-    const [precio, onChangePrecio] = React.useState('');
+    const [precio, onChangePrecio] = React.useState('0');
+
+    useEffect(() => {
+        if (book != null) {
+            onChangeBookId(book.bookId.toString())
+            onChangeNombre(book.nombre)
+            onChangeNombreAutor(book.nombreAutor)
+            onChangeEdicion(book.edicion)
+            onChangePrecio(book.precio.toString())
+        }
+    }, []);
 
     const nuevo = () => {
+        onChangeBookId('0')
         onChangeNombre("")
         onChangeNombreAutor("")
         onChangeEdicion("")
-        onChangePrecio("")
+        onChangePrecio("0")
     }
-    
+
     function guardarData() {
-        postBook(nombre, nombreAutor, edicion, precio)
-            .then((response) => {
-                if (response.ok == true)
-                    alert("Se guardo el libro")
-                else
-                    alert("No se guardo el libro")
-            })
+
+        if (bookId == 0) {
+            postBook(nombre, nombreAutor, edicion, precio)
+                .then((response) => {
+                    if (response.ok == true)
+                        alert("Se guardo el libro")
+                    else
+                        alert("No se guardo el libro")
+                })
+        } else {
+            putBook(bookId, nombre, nombreAutor, edicion, precio)
+                .then((response) => {
+                    if (response.ok == true)
+                        alert("Se guardo el libro")
+                    else
+                        alert("No se guardo el libro")
+                })
+        }
+
     }
 
     const eliminar = () => {
-        alert("no disponisble")
+        Alert.alert('Eliminar Libro', 'se eliminara el libro con Id :' + bookId, [
+            {
+                text: "cancelar",
+                onPress: () => { console.log('OK Pressed') },
+                style: 'cancelar'
+            },
+            {
+                text: 'Yes',
+                onPress: () => {
+                    deleteBook(bookId)
+                        .then((resp) => {
+                            if (resp.ok == true) {
+                                nuevo()
+                                alert("Se elimino el libro")
+                            }
+                            else
+                                alert("No se elimino el libro")
+                        })
+                }
+            },
+        ]);
     }
 
     return (
