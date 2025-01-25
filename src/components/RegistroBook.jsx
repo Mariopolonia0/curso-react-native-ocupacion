@@ -4,7 +4,8 @@ import {
     Text,
     TextInput,
     StyleSheet,
-    Button, Pressable
+    Button, 
+    Pressable
 } from "react-native";
 import MaterialIcons from '@expo/vector-icons/MaterialIcons';
 import { postBook } from "../lib/data-api";
@@ -21,7 +22,7 @@ export function RegistroBook() {
         onChangeEdicion("")
         onChangePrecio("")
     }
-    // .then((books) => { setData(books) })
+    
     function guardarData() {
         postBook(nombre, nombreAutor, edicion, precio)
             .then((response) => {
