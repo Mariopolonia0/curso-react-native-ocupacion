@@ -1,22 +1,18 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { getBooks } from "../lib/data-api";
 import { Link } from "expo-router";
 import Ionicons from '@expo/vector-icons/Ionicons';
 import { styled } from "nativewind"
+import { Logo } from "./Logo";
 import {
-  SafeAreaView,
   StyleSheet,
   Text,
   View,
-  StatusBar,
-  ActionBar,
   Image,
-  Button,
   ScrollView,
   Pressable
 } from "react-native";
 
-const icon = require("../resources/SPIcon.png");
 const StyledPressable = styled(Pressable)
 
 export function Main() {
@@ -28,7 +24,7 @@ export function Main() {
       .then((books) => { setData(books) })
       .finally(() => setLoading(false))
   }, [loading]);
-  //<Button style={styles.button} title="New Book" onPress={() =>  } />
+
   return (
     <View style={styles.container}>
       {loading ? (
@@ -38,12 +34,12 @@ export function Main() {
           data.map((post) => {
             return (
               //asChild es para que reconosca el componente StyledPressable como hijo
-              <Link href={`/${post}`} asChild >
+              <Link href={`/${post.bookId}`} asChild >
                 <StyledPressable className="active:opacity-70 border border-black active:border-white/50 mb-2">
                   <View key={post.bookId} style={styles.card}>
                     <Text>{"Codigo : " + post.bookId}</Text>
                     <Text>{post.nombre}</Text>
-                    <Text>{post.nombreAutor}</Text>
+                    <Text>{post.nombreAutor}</Text>9722
                     <Text>{"Precio : " + post.precio}</Text>
                   </View>
                 </StyledPressable>
@@ -52,12 +48,7 @@ export function Main() {
           })}
         </ScrollView>
       )}
-      <View style={styles.containerImage}>
-        <Image
-          source={icon}
-          style={styles.image}
-        />
-      </View>
+      <Logo />
     </View>
   );
 }
@@ -67,27 +58,6 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "beige",
   },
-  buttonAdd: {
-    marginRight: 10
-  },
-  containerImage: {
-    display: "flex",
-    alignItems: "center",
-  },
-  barTitle: {
-    backgroundColor: "#010080",
-    display: "flex",
-    flexDirection: 'row',
-    justifyContent: "space-between",
-    padding: 5,
-    alignItems: "center",
-  },
-  letraTitulo: {
-    padding: 10,
-    color: 'white',
-    fontSize: 24,
-
-  },
   card: {
     padding: 5,
     alignItems: "left",
@@ -95,14 +65,5 @@ const styles = StyleSheet.create({
     backgroundColor: "gray",
     display: "flex",
     flexDirection: 'column',
-  },
-  image: {
-    width: 100,
-    height: 100,
-    resizeMode: "center",
-    padding: 5,
-    alignItems: "center",
-    display: "flex",
-    justifyContent: "center",
   }
 });
