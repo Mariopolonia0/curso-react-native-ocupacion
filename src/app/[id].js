@@ -1,8 +1,9 @@
 import { View, StyleSheet, ActivityIndicator } from "react-native";
-import { useLocalSearchParams, Stack } from "expo-router"
+import { useLocalSearchParams } from "expo-router"
 import { useState, useEffect } from "react";
 import { RegistroBook } from "../components/RegistroBook";
 import { getBooksId } from "../lib/data-api";
+import { ActionBar } from "../components/ActionBar";
 
 export default function PutBook() {
 
@@ -14,17 +15,11 @@ export default function PutBook() {
     }, [id]);
 
     return (
-        <View style={styles.ViewMaster}>
-            <Stack.Screen
-                options={{
-                    headerTitle: "Editar Book",
-                    headerLeft: () => { },
-                    headerRight: () => { }
-                }}
-            />
+        <View>
+            <ActionBar title="Editar book" />
             {
                 bookInfo == null ? (
-                    <ActivityIndicator style={styles.indicator} color={"000080"} size={"large"} />
+                    <ActivityIndicator style={styles.indicator} color="000080" size="large" />
                 ) : (
                     <RegistroBook book={bookInfo} />
                 )
@@ -34,9 +29,6 @@ export default function PutBook() {
 }
 
 const styles = StyleSheet.create({
-    ViewMaster: {
-        flex: 1,
-    },
     indicator: {
         flex: 1,
         alignItems: "center",

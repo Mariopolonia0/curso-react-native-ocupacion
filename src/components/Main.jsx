@@ -1,19 +1,9 @@
 import { useState, useEffect } from "react";
 import { getBooks } from "../lib/data-api";
-import { Link } from "expo-router";
-import Ionicons from '@expo/vector-icons/Ionicons';
-import { styled } from "nativewind"
 import { Logo } from "./Logo";
-import {
-  StyleSheet,
-  Text,
-  View,
-  Image,
-  ScrollView,
-  Pressable
-} from "react-native";
-
-const StyledPressable = styled(Pressable)
+import { StyleSheet, View, ActivityIndicator } from "react-native";
+import { ActionBar } from "./ActionBar";
+import { ListaBook } from "./ListaBook";
 
 export function Main() {
   const [data, setData] = useState([]);
@@ -27,27 +17,14 @@ export function Main() {
 
   return (
     <View style={styles.container}>
-      {loading ? (
-        <Text>Loading...</Text>
-      ) : (
-        <ScrollView >{
-          data.map((post) => {
-            return (
-              //asChild es para que reconosca el componente StyledPressable como hijo
-              <Link href={`/${post.bookId}`} asChild >
-                <StyledPressable className="active:opacity-70 border border-black active:border-white/50 mb-2">
-                  <View key={post.bookId} style={styles.card}>
-                    <Text>{"Codigo : " + post.bookId}</Text>
-                    <Text>{post.nombre}</Text>
-                    <Text>{post.nombreAutor}</Text>9722
-                    <Text>{"Precio : " + post.precio}</Text>
-                  </View>
-                </StyledPressable>
-              </Link>
-            );
-          })}
-        </ScrollView>
-      )}
+      <ActionBar title={"List Book"} activarButton={true} />
+      {
+        loading ? (
+          <ActivityIndicator style={styles.indicator} color="#000080" size="large" />
+        ) : (
+          <ListaBook books={data} />
+        )
+      }
       <Logo />
     </View>
   );
@@ -58,12 +35,9 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "beige",
   },
-  card: {
-    padding: 5,
-    alignItems: "left",
-    margin: 10,
-    backgroundColor: "gray",
-    display: "flex",
-    flexDirection: 'column',
+  indicator: {
+    flex: 1,
+    alignItems: "center",
+    justifyContent: "center"
   }
 });
