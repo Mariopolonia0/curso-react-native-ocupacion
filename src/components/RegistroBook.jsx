@@ -4,12 +4,13 @@ import {
     Text,
     TextInput,
     StyleSheet,
-    Button,
     Pressable,
     Alert
 } from "react-native";
 import MaterialIcons from '@expo/vector-icons/MaterialIcons';
 import { deleteBook, postBook, putBook } from "../lib/data-api";
+import { useRouter } from 'expo-router'
+import { ActionBar } from "./ActionBar";
 
 export function RegistroBook({ book }) {
     const [bookId, onChangeBookId] = React.useState('0');
@@ -17,6 +18,7 @@ export function RegistroBook({ book }) {
     const [nombreAutor, onChangeNombreAutor] = React.useState('');
     const [edicion, onChangeEdicion] = React.useState('');
     const [precio, onChangePrecio] = React.useState('0');
+    const router = useRouter();
 
     useEffect(() => {
         if (book != null) {
@@ -41,21 +43,24 @@ export function RegistroBook({ book }) {
         if (bookId == 0) {
             postBook(nombre, nombreAutor, edicion, precio)
                 .then((response) => {
-                    if (response.ok == true)
+                    if (response.ok == true) {
                         alert("Se guardo el libro")
+                        router.back()
+                    }
                     else
                         alert("No se guardo el libro")
                 })
         } else {
             putBook(bookId, nombre, nombreAutor, edicion, precio)
                 .then((response) => {
-                    if (response.ok == true)
-                        alert("Se guardo el libro")
+                    if (response.ok == true) {
+                        alert("Se modifico el libro")
+                        router.back()
+                    }
                     else
-                        alert("No se guardo el libro")
+                        alert("No se modifico el libro")
                 })
         }
-
     }
 
     const eliminar = () => {
@@ -73,6 +78,7 @@ export function RegistroBook({ book }) {
                             if (resp.ok == true) {
                                 nuevo()
                                 alert("Se elimino el libro")
+                                router.back()
                             }
                             else
                                 alert("No se elimino el libro")
