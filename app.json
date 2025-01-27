@@ -8,6 +8,7 @@
     "userInterfaceStyle": "light",
     "newArchEnabled": true,
     "":"",
+    "scheme":"com.mariopolonia0.manager-book",
     "splash": {
       "image": "./assets/splash-icon.png",
       "resizeMode": "contain",

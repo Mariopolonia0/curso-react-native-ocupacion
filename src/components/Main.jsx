@@ -33,7 +33,7 @@ export function Main() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "beige",
+    backgroundColor: "#dddddd",
   },
   indicator: {
     flex: 1,
